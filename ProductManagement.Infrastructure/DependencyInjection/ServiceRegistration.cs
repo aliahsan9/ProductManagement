@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ProductManagement.Application.Interfaces.Repositories;
 using ProductManagement.Infrastructure.Persistence;
+using ProductManagement.Infrastructure.Repositories;
 
 namespace ProductManagement.Infrastructure.DependencyInjection
 {
@@ -13,6 +15,8 @@ namespace ProductManagement.Infrastructure.DependencyInjection
 
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection"));
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
         });
 
