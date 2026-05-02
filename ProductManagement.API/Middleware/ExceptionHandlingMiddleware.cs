@@ -37,9 +37,9 @@ namespace ProductManagement.API.Middleware
             };
 
             context.Response.ContentType = "appliaciton/json";
-            context.Response.StatusCode = (int)status
+            context.Response.StatusCode = (int)status;
 
-                var json = JsonSerializer.Serialize(response);
+            var json = JsonSerializer.Serialize(response);
             await context.Response.WriteAsync(json);
         }
     }

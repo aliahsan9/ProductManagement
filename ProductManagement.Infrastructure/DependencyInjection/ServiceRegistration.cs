@@ -5,6 +5,7 @@ using ProductManagement.Application.Interfaces.Repositories;
 using ProductManagement.Application.Interfaces.UnitOfWork;
 using ProductManagement.Infrastructure.Persistence;
 using ProductManagement.Infrastructure.Repositories;
+using StackExchange.Redis;
 
 namespace ProductManagement.Infrastructure.DependencyInjection
 {
@@ -16,6 +17,13 @@ namespace ProductManagement.Infrastructure.DependencyInjection
 
                 options.UseSqlServer(
                     configuration.GetConnectionString("DefaultConnection")));
+
+            // Redis
+            var redisConnection = configuration.GetConnectionString("Redis");
+
+            services.AddSingleton<IConnectionMultiplexer>(
+                ConnectionMultiplexer.Connect(redisConnection));
+
             services.AddRepositories();
 
             services.AddScoped<IProductRepository, ProductRepository>();

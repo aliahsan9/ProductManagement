@@ -1,3 +1,4 @@
+using ProductManagement.API.Middleware;
 using ProductManagement.Application.DependencyInjection;
 using ProductManagement.Infrastructure.DependencyInjection;
 
@@ -18,6 +19,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+// Configure Exception Middleware
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
