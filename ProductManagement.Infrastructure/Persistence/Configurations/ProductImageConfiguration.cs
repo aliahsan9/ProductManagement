@@ -14,15 +14,13 @@ namespace ProductManagement.Infrastructure.Persistence.Configurations
 
             builder.Property(x => x.ImageUrl)
                 .IsRequired();
-
+             
             builder.Property(x => x.IsMain)
                 .HasDefaultValue(false);
 
             builder.HasOne(x => x.Product)
                 .WithMany(x => x.ProductImages)
                 .HasForeignKey(x => x.ProductId);
-
-
 
         }
 
