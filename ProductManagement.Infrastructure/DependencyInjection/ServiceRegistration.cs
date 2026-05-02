@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProductManagement.Application.Interfaces.Repositories;
+using ProductManagement.Application.Interfaces.UnitOfWork;
 using ProductManagement.Infrastructure.Persistence;
 using ProductManagement.Infrastructure.Repositories;
 
@@ -14,9 +15,12 @@ namespace ProductManagement.Infrastructure.DependencyInjection
             services.AddDbContext<AppDbContext>(options =>
 
                 options.UseSqlServer(
-                    configuration.GetConnectionString("DefaultConnection"));
+                    configuration.GetConnectionString("DefaultConnection")));
+            services.AddRepositories();
+
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         });
 
