@@ -31,6 +31,11 @@ namespace ProductManagement.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductResponseDto dto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var productId = await _service.CreateAsync(dto);
 
             return CreatedAtAction(
